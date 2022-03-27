@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Quiz>? quiz_list;
   int sum = 0;
-  int wrong_guess = 0;
+  int wrong = 0;
   String message = "";
 
   @override
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
         if (quiz_list![sum].answer == choice) {
           sum++;
         } else {
-          wrong_guess++;
+          wrong++;
         }
       });
     });
@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('จบเกม'),
-            Text('ทายผิด ${wrong_guess} ครั้ง'),
+            Text('ทายผิด ${wrong} ครั้ง'),
 
           ],
         ),
