@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Quiz>? quiz_list;
-  int count = 0;
+  int sum = 0;
   int wrong_guess = 0;
   String message = "";
 
@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
 
   void guess(String choice) {
     setState(() {
-      if (quiz_list![count].answer == choice) {
+      if (quiz_list![sum].answer == choice) {
         message = "เก่งมากค่ะคุณผู้เล่น";
       } else {
         message = "ตอบผิดนะคะ ตอบใหม่ค่ะ";
@@ -41,8 +41,8 @@ class _HomePageState extends State<HomePage> {
     Timer timer = Timer(Duration(seconds: 2), () {
       setState(() {
         message = "";
-        if (quiz_list![count].answer == choice) {
-          count++;
+        if (quiz_list![sum].answer == choice) {
+          sum++;
         } else {
           wrong_guess++;
         }
@@ -63,9 +63,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: quiz_list != null && count < quiz_list!.length-1
+      body: quiz_list != null && sum < quiz_list!.length-1
           ? buildQuiz()
-          : quiz_list != null && count == quiz_list!.length-1
+          : quiz_list != null && sum == quiz_list!.length-1
           ? buildTryAgain()
           : const Center(child: CircularProgressIndicator()),
     );
@@ -94,10 +94,10 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.network(quiz_list![count].image_url, fit: BoxFit.cover),
+            Image.network(quiz_list![sum].image_url, fit: BoxFit.cover),
             Column(
               children: [
-                for (int i = 0; i < quiz_list![count].choices.length; i++)
+                for (int i = 0; i < quiz_list![sum].choices.length; i++)
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -105,8 +105,8 @@ class _HomePageState extends State<HomePage> {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () =>
-                                guess(quiz_list![count].choices[i].toString()),
-                            child: Text(quiz_list![count].choices[i]),
+                                guess(quiz_list![sum].choices[i].toString()),
+                            child: Text(quiz_list![sum].choices[i]),
                           ),
                         ),
                       ],
